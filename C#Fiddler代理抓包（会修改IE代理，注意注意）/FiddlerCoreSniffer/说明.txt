@@ -1,0 +1,24 @@
+FiddlerCoreSniffer-master
+
+github地址：https://github.com/cuicheng11165/FiddlerCoreDemo
+使用Fiddler Core Api，通过nuget再vs中进行加载。
+可以捕获https的请求连接，至于请求内容没有测试应该是可以捕获的。
+原理：
+通过Fiddler代理的方式，网站https请求到Fiddler代理，Fiddler代理使用自己的证书，替换目标网站的证书返回给浏览器。
+然后，因为是用的自己的证书，所以，是可以读取到客户端内容的。
+
+
+安装证书：
+public static bool InstallCertificate()
+{
+    if (!CertMaker.rootCertExists())
+    {
+        if (!CertMaker.createRootCert())
+            return false;
+
+        if (!CertMaker.trustRootCert())
+            return false;
+    }
+
+    return true;
+}
